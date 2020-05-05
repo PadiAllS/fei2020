@@ -17,7 +17,7 @@ class m200421_161934_crear_tabla_usuarios extends Migration
             'username' => $this->string()->notNull(),
             'nombre' => $this->text(),
             'apellido' => $this->text(),
-            'edad' => $this->text(),
+            'edad' => $this->integer(),
             
         ]);
 
