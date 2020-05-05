@@ -1,0 +1,36 @@
+version: '3.1'
+
+services:
+   DB:
+     image: mysql:5.7.27
+     environment:
+        MYSQL_DATABASE: fei2020
+        MYSQL_ROOT_PASSWORD: fei2020
+     ports:
+        - 4000:3306
+     volumes:
+        - ./mysqldata:/var/lib/mysql:delegated
+
+   APP:
+      image: yiisoftware/yii2-php:7.1-apache
+      volumes: 
+        - ./src/composer/cache:/root/.composer/cahe:delegated
+        - ./src/basic:/app:delegated
+      ports:
+        - 8000:80
+      environment:
+        DB_DATABASE: fei2020
+        DB_PASSWORD: fei2020
+        DB_HOST: DB
+        PHP_USER_ID: 1000
+        PRODUCCION: 0
+
+   phpmyadmin:      
+      image: phpmyadmin/phpmyadmin
+      environment:
+         PMA_HOST: DB
+         PMA_USER: root
+         PMA_PASSWORD: fei2020
+         PMA_PORT: 3306
+      ports:
+         - 8001:80
