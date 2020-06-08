@@ -24,8 +24,8 @@ $this->registerJsFile(
         <button @click="mostrar = !mostrar"> {{mostrar?'Ocultar':'Mostrar'}}</button>
         <span v-if="mostrar">Este texto se puede ocultar</span>
         <hr>
-        <input v-model="nuevoMusico" placeholder="Musico">
-        <input v-model.number="nuevoDisco" placeholder="Discos">
+        <input ref="musico" @keyup.enter="setFocus" v-model="nuevoMusico" placeholder="Musico">
+        <input ref="discos" @keyup.enter="agregarMusico" v-model.number="nuevoDisco" placeholder="Discos">
         <button @click="agregarMusico">+</button>
         <hr>
 
@@ -63,8 +63,13 @@ $this->registerJsFile(
                     nombre: this.nuevoMusico,
                     discos: this.nuevoDisco
                 })
-                this.nuevoMusico="",
-                this.nuevoDisco=0
+                this.nuevoMusico="";
+                this.nuevoDisco=0;
+                this.$refs.musico.focus();
+            },
+            setFocus(){
+                this.$refs.discos.focus();
+                this.$refs.discos.select();
             }
 
         },
